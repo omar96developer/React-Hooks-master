@@ -1,77 +1,87 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ControlledInput = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cellulare, setCellulare] = useState("");
-  const [persone, setPersone] = useState([]);
+  const [persona, setPersona] = useState({
+    nome: "",
+    email: "",
+    cellulare: "",
+  });
 
-  const handleSumbit = (e) => {
-    e.preventDefault();
-    setPersone([
-      ...persone,
-      {
-        id: persone.length + 1,
-        nome,
-        email,
-        cellulare,
-      },
-    ]);
-    setNome("");
-    setEmail("");
-    setCellulare("");
+  const [persone, setPersone] = useState([]);
+  console.log(persone);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (persona.nome && persona.email && persona.cellulare) {
+      setPersone([
+        ...persone,
+        {
+          id: new Date(Date.now()).getTime().toString(),
+          ...persona,
+        },
+      ]);
+      setPersona({
+        nome: "",
+        email: "",
+        cellulare: "",
+      });
+    } else {
+      alert("Riempi il form");
+    }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPersona({ ...persona, [name]: value });
+  };
   useEffect(() => {
-    const { log } = console;
-    log(persone);
-  }, [persone]);
+    console.log(persona);
+  }, [persona]);
+
   return (
-    <form className='bg-white shadow p-4' onSubmit={(e) => handleSumbit(e)}>
-      <div className='form-group d-flex align-items-center container mt-2'>
-        <label htmlFor='nome' className='text-left font-weight-bold col-2'>
-          {" "}
-          Nome:{" "}
+    <form
+      className="bg-white shadow rounded p-4" /*  onSubmit={handleSubmit} */
+    >
+      <div className="form-group d-flex align-items-center container mt-2">
+        <label htmlFor="nome" className="text-left font-weight-bold col-2">
+          Nome:
         </label>
         <input
-          type='text'
-          id='nome'
-          name='nome'
-          className='form-control'
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+          id="nome"
+          type="text"
+          name="nome"
+          value={persona.nome}
+          onChange={handleChange}
+          className="form-control"
+        ></input>
       </div>
-      <div className='form-group d-flex align-items-center container mt-2'>
-        <label htmlFor='email' className='text-left font-weight-bold col-2'>
-          {" "}
-          Email:{" "}
+      <div className="form-group d-flex align-items-center container mt-2">
+        <label htmlFor="email" className="text-left font-weight-bold col-2">
+          Email:
         </label>
         <input
-          type='email'
-          id='email'
-          name='email'
-          className='form-control'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          id="email"
+          type="email"
+          name="email"
+          value={persona.email}
+          onChange={handleChange}
+          className="form-control"
+        ></input>
       </div>
-      <div className='form-group d-flex align-items-center container mt-2'>
-        <label htmlFor='cellulare' className='text-left font-weight-bold col-2'>
-          {" "}
-          Cellulare:{" "}
+      <div className="form-group d-flex align-items-center container mt-2">
+        <label htmlFor="cellulare" className="text-left font-weight-bold col-2">
+          Cellulare:
         </label>
         <input
-          type='tel'
-          id='cellulare'
-          name='cellulare'
-          className='form-control'
-          value={cellulare}
-          onChange={(e) => setCellulare(e.target.value)}
-        />
+          id="cellulare"
+          type="tel"
+          name="cellulare"
+          value={persona.cellulare}
+          onChange={handleChange}
+          className="form-control"
+        ></input>
       </div>
-      <button type='submit' className='btn btn-info mt-4'>
-        {" "}
+      <button type="submit" className="btn btn-info" onClick={handleSubmit}>
         Invia
       </button>
     </form>
