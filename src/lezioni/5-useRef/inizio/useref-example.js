@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useRef} from "react";
 
 const RefExample = () => {
+  const scrollref = useRef(null);
+  const handleScroll = () => {
+    if(!scrollref || !scrollref.current){
+      return
+    }
+    scrollref.current.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
   return (
     <>
       <h1>Use Ref</h1>
@@ -10,7 +17,8 @@ const RefExample = () => {
           height: "100vh",
         }}
       >
-        <button className="btn btn-info">Scroll</button>
+        <button className="btn btn-info" onClick={handleScroll}>Scroll</button>
+        
       </div>
 
       <div
@@ -19,7 +27,7 @@ const RefExample = () => {
         }}
       ></div>
 
-      <h2>Testo Testo</h2>
+      <h2 ref={scrollref}>Testo Testo</h2>
       <div
         style={{
           height: "30vh",
