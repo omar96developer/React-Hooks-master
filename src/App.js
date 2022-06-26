@@ -1,5 +1,4 @@
-import Inizio from "./lezioni/5-useRef/inizio/useref-example";
-
+import Inizio from "./lezioni/7-prop-drilling/inizio"
 function App() {
   return (
     <div className="App">
