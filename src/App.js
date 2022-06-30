@@ -1,4 +1,4 @@
-import Inizio from "./lezioni/7-prop-drilling/inizio"
+import Inizio from "./lezioni/7-prop-drilling/inizio/prop-drilling"
 function App() {
   return (
     <div className="App">
